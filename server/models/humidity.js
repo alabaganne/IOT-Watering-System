@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const tempSchema = new mongoose.Schema({
+const humiditySchema = new mongoose.Schema({
 	// mongoose generate _id field by default
 	value: {
 		type: Number,
@@ -12,6 +12,6 @@ const tempSchema = new mongoose.Schema({
 	}
 });
 
-const tempModel = mongoose.model('temps', tempSchema);
+const humidityModel = mongoose.model('temps', humiditySchema);
 
-module.exports = tempModel;
+module.exports = humidityModel;

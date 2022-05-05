@@ -5,8 +5,125 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Watering System Dashboard</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+		body {
+			font-family: 'Inter', sans-serif;
+		}
+	</style>
 </head>
-<body>
-	<h1>Current Temp: <%= data.current_temp %></h1>
+<body class="bg-gray-50">
+	<div class="min-h-full">
+		<nav class="bg-gray-800">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex items-center justify-between h-16">
+					<div class="flex items-center">
+						<div class="flex-shrink-0 text-white font-bold text-xl">
+							LOGO
+						</div>
+						<div class="hidden md:block">
+							<div class="ml-10 flex items-baseline space-x-4">
+								<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+								<a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
+
+								<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Watering History</a>
+							</div>
+						</div>
+					</div>
+					<div class="-mr-2 flex md:hidden">
+						<!-- Mobile menu button -->
+						<button type="button" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+							<span class="sr-only">Open main menu</span>
+							<!--
+								Heroicon name: outline/menu
+
+								Menu open: "hidden", Menu closed: "block"
+							-->
+							<svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+							</svg>
+							<!--
+								Heroicon name: outline/x
+
+								Menu open: "block", Menu closed: "hidden"
+							-->
+							<svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Mobile menu, show/hide based on menu state. -->
+			<div class="md:hidden" id="mobile-menu">
+				<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+					<!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+					<a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
+
+					<a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Watering History</a>
+				</div>
+			</div>
+		</nav>
+
+		<header class="bg-white shadow-sm">
+			<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+				<h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
+			</div>
+		</header>
+		<main>
+			<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+				<div class="px-4 py-6 sm:px-0">
+					<div class="grid grid-cols-3 gap-6">
+						<!-- first card -->
+						<div class="col-span-1">
+							<div class="p-8 bg-white rounded-lg shadow-sm flex items-center gap-6">
+								<div>
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+										<path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd" />
+									</svg>
+								</div>
+								<div>
+									<div class="text-md font-medium text-gray-400">Temperature</div>
+									<div class="mt-2 text-6xl font-bold text-gray-800"><%= currentTemp.value %>°</div>
+								</div>
+							</div>
+						</div>
+						<!-- second card -->
+						<div class="col-span-1">
+							<div class="p-8 bg-white rounded-lg shadow-sm flex items-center gap-6">
+								<div>
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+										<path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6zm1 2a1 1 0 000 2h6a1 1 0 100-2H7zm6 7a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-3 3a1 1 0 100 2h.01a1 1 0 100-2H10zm-4 1a1 1 0 011-1h.01a1 1 0 110 2H7a1 1 0 01-1-1zm1-4a1 1 0 100 2h.01a1 1 0 100-2H7zm2 1a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1zm4-4a1 1 0 100 2h.01a1 1 0 100-2H13zM9 9a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1zM7 8a1 1 0 000 2h.01a1 1 0 000-2H7z" clip-rule="evenodd" />
+									</svg>
+								</div>
+								<div>
+									<div class="text-md font-medium text-gray-400">AVG. temperature (30 days)</div>
+									<!-- hard coded -->
+									<div class="mt-2 text-6xl font-bold text-gray-800">32.5°</div>
+								</div>
+							</div>
+						</div>
+						<!-- third card -->
+						<div class="col-span-1">
+							<div class="p-8 bg-white rounded-lg shadow-sm flex items-center gap-6">
+								<div>
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+										<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+									</svg>
+								</div>
+								<div>
+									<div class="text-md font-medium text-gray-400">Humidity</div>
+									<div class="mt-2 text-6xl font-bold text-gray-800">25°</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /End replace -->
+			</div>
+		</main>
+	</div>
 </body>
 </html>
