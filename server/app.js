@@ -15,6 +15,7 @@ app.set('view engine', 'ejs');
 // connect to mongodb cloud db
 async function main() {
 	await mongoose.connect('mongodb+srv://alabaganne:ala50101959@cluster0.xga5n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+	console.log('successfully connected to cloud database');
 }
 main().catch(err => console.log(err));
 
@@ -55,11 +56,15 @@ passport.deserializeUser(function(id, done) {
 app.get('/login', function(req, res) {
 	return res.render('login');
 });
-app.post('/login', function(req, res) {
-	res.redirect('/');
+app.post('/login', passport.authenticate('local', { failureRedirect: '/' }), function(req, res) {
+	res.redirect('/dashboard');
 });
 
-app.get('/', async function(req, res) {
+app.get('/', function(req, res) {
+	res.redirect('/login');
+});
+
+app.get('/dashboard', async function(req, res) {
 	// get latest temp reading from db
 	let currentTemp = await tempModel.findOne().sort('-created'); // latest temp value
 	// render data to the user
