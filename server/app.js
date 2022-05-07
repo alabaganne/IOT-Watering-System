@@ -9,12 +9,14 @@ const userModel = require('./models/user');
 const tempModel = require('./models/temp');
 const port = 3000;
 
+require('dotenv').config();
+
 // app.set('trust proxy', 1) // trust first proxy
 app.set('view engine', 'ejs');
 
 // connect to mongodb cloud db
 async function main() {
-	await mongoose.connect('mongodb+srv://alabaganne:ala50101959@cluster0.xga5n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+	await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.xga5n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
 	console.log('successfully connected to cloud database');
 }
 main().catch(err => console.log(err));
