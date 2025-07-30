@@ -1,4 +1,4 @@
-# IoT Watering System
+# SmartWater-IoT
 
 A university project that monitors temperature using Raspberry Pi sensors and displays data through a web dashboard.
 
